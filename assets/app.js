@@ -92,7 +92,7 @@
   /* ---------- 04: motion-коллаж ---------- */
   const motionGrid = $('#motion-grid');
   // порядок подобран под раскладку: широкие лупы (ai-08, ai-05, ai-09) — на «широкие» позиции 4, 6, 9
-  const MOTION_ORDER = ['ai-01', 'ai-02', 'ai-06', 'ai-08', 'ai-03', 'ai-05', 'ai-04', 'ai-07', 'ai-09'];
+  const MOTION_ORDER = ['ai-01', 'ai-02', 'ai-06', 'ai-08', 'ai-03', 'ai-05', 'ai-04', 'ai-07', 'ai-09', 'ai-10'];
   MOTION_ORDER.forEach((name) => {
     const fig = document.createElement('figure');
     fig.appendChild(makeLoop('assets/video/loops/' + name + '.mp4'));
