@@ -112,50 +112,82 @@
   addFrags(12);
   $('#frag-more').addEventListener('click', () => addFrags(fragItems.length));
 
-  /* ---------- 05: set design — сцена с автосменой ---------- */
+  /* ---------- 04: art direction — кампания ---------- */
+  const campGrid = $('#camp-grid');
+  if (campGrid) {
+    // редакционный ритм для горизонтальных кадров; вертикальные — отдельным разворотом
+    const RHYTHM = ['camp--full', 'camp--left', 'camp--right', 'camp--half', 'camp--half', 'camp--wide'];
+    let landscapeN = 0;
+    let openHalf = null; // незакрытая половина пары
+    (G.artdir || []).forEach((it, i) => {
+      const fig = makeFigure(it, 'artdir', i);
+      if (it.h > it.w) {
+        // вертикальный кадр идёт отдельным разворотом и не должен разрывать пару
+        if (openHalf) {
+          openHalf.classList.replace('camp--half', 'camp--wide');
+          openHalf = null;
+          landscapeN++; // пропускаем вторую половину в ритме
+        }
+        fig.classList.add('camp--tall');
+      } else {
+        const cls = RHYTHM[landscapeN % RHYTHM.length];
+        fig.classList.add(cls);
+        openHalf = cls === 'camp--half' ? (openHalf ? null : fig) : null;
+        landscapeN++;
+      }
+      campGrid.appendChild(fig);
+    });
+  }
+
+  /* ---------- 05: set design — сцена с автосменой (если раздел включён) ---------- */
   const setItems = G.set || [];
-  const N_STAGE = Math.min(12, setItems.length);
   const stageImgs = $('#stage-imgs');
-  const stageCounter = $('#stage-counter');
-  const stageEls = [];
-  for (let i = 0; i < N_STAGE; i++) {
-    const idx = Math.floor(i * setItems.length / N_STAGE);
-    const img = document.createElement('img');
-    img.src = setItems[idx].src; img.alt = ''; img.decoding = 'async';
-    if (i > 1) img.loading = 'lazy';
-    stageImgs.appendChild(img);
-    stageEls.push(img);
+  if (stageImgs && setItems.length) {
+    const N_STAGE = Math.min(12, setItems.length);
+    const stageCounter = $('#stage-counter');
+    const stageEls = [];
+    for (let i = 0; i < N_STAGE; i++) {
+      const idx = Math.floor(i * setItems.length / N_STAGE);
+      const img = document.createElement('img');
+      img.src = setItems[idx].src; img.alt = ''; img.decoding = 'async';
+      if (i > 1) img.loading = 'lazy';
+      stageImgs.appendChild(img);
+      stageEls.push(img);
+    }
+    let stageIdx = 0, stageTimer = null;
+    const showStage = (i) => {
+      stageEls[stageIdx] && stageEls[stageIdx].classList.remove('cur');
+      stageIdx = (i + N_STAGE) % N_STAGE;
+      stageEls[stageIdx].classList.add('cur');
+      stageCounter.textContent = String(stageIdx + 1).padStart(2, '0') + ' / ' + String(N_STAGE).padStart(2, '0');
+    };
+    const stageAuto = () => {
+      clearInterval(stageTimer);
+      stageTimer = setInterval(() => showStage(stageIdx + 1), 4500);
+    };
+    showStage(0);
+    // автосмена — только пока секция видна
+    new IntersectionObserver((es) => {
+      es.forEach((e) => { if (e.isIntersecting) stageAuto(); else clearInterval(stageTimer); });
+    }).observe($('#stage-view'));
+    $('.stage__zone--next').addEventListener('click', () => { showStage(stageIdx + 1); stageAuto(); });
+    $('.stage__zone--prev').addEventListener('click', () => { showStage(stageIdx - 1); stageAuto(); });
   }
-  let stageIdx = 0, stageTimer = null;
-  function showStage(i) {
-    stageEls[stageIdx] && stageEls[stageIdx].classList.remove('cur');
-    stageIdx = (i + N_STAGE) % N_STAGE;
-    stageEls[stageIdx].classList.add('cur');
-    stageCounter.textContent = String(stageIdx + 1).padStart(2, '0') + ' / ' + String(N_STAGE).padStart(2, '0');
-  }
-  function stageAuto() {
-    clearInterval(stageTimer);
-    stageTimer = setInterval(() => showStage(stageIdx + 1), 4500);
-  }
-  showStage(0);
-  // автосмена — только пока секция видна
-  new IntersectionObserver((es) => {
-    es.forEach((e) => { if (e.isIntersecting) stageAuto(); else clearInterval(stageTimer); });
-  }).observe($('#stage-view'));
-  $('.stage__zone--next').addEventListener('click', () => { showStage(stageIdx + 1); stageAuto(); });
-  $('.stage__zone--prev').addEventListener('click', () => { showStage(stageIdx - 1); stageAuto(); });
 
   /* ---------- 05: архив сценографии ---------- */
   const arch = $('#archive');
   let archBuilt = false;
-  $('[data-open-archive]').addEventListener('click', () => {
-    if (!archBuilt) {
-      const body = $('#arch-body');
-      setItems.forEach((it, i) => body.appendChild(makeFigure(it, 'set', i)));
-      archBuilt = true;
-    }
-    openOverlay(arch);
-  });
+  const archOpenBtn = $('[data-open-archive]');
+  if (archOpenBtn) {
+    archOpenBtn.addEventListener('click', () => {
+      if (!archBuilt) {
+        const body = $('#arch-body');
+        setItems.forEach((it, i) => body.appendChild(makeFigure(it, 'set', i)));
+        archBuilt = true;
+      }
+      openOverlay(arch);
+    });
+  }
   $('[data-close-archive]').addEventListener('click', () => closeOverlay(arch));
 
   /* ---------- 06: студия ---------- */

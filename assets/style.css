@@ -30,6 +30,8 @@ body.locked { overflow: hidden; }
 .dim { color: var(--dim); }
 a { color: inherit; text-decoration: none; }
 img, video { display: block; max-width: 100%; }
+/* пропорции кадров неприкосновенны: атрибут height не должен растягивать картинку */
+img { height: auto; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 
 .ghost {
@@ -242,6 +244,50 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .strip-label { margin-bottom: 1.2rem; }
 
+/* ============ 04 art direction — кампания ============ */
+.camp-sect { padding: 6rem 2rem 8rem; max-width: 1500px; margin: 0 auto; }
+.camp-meta { display: flex; gap: 2.4rem; flex-wrap: wrap; margin: -2rem 0 3.4rem; }
+.camp {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 18px;
+  row-gap: 11vh;
+  align-items: start;
+}
+.camp figure { cursor: pointer; margin: 0; }
+.camp img {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease, filter 0.5s;
+  filter: saturate(0.94);
+}
+.camp img.is-visible { opacity: 1; }
+.camp figure:hover img { filter: saturate(1) brightness(1.03); }
+.camp figcaption {
+  margin-top: 0.7rem;
+  font-family: var(--mono); font-size: 0.7rem;
+  letter-spacing: 0.1em; color: var(--dim);
+}
+
+/* редакционный ритм — каждый кадр в своих пропорциях */
+.camp .camp--full  { grid-column: 1 / -1; }
+.camp .camp--wide  { grid-column: 2 / span 10; }
+.camp .camp--left  { grid-column: 1 / span 7; }
+.camp .camp--right { grid-column: 6 / span 7; }
+.camp .camp--half  { grid-column: span 6; }
+
+/* вертикальный кадр — отдельный разворот во всю высоту */
+.camp .camp--tall {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 6vh 0;
+}
+.camp .camp--tall img {
+  width: auto;
+  height: min(88vh, 940px);
+  max-width: 100%;
+}
+
 /* ============ 05 set design — сцена ============ */
 .stage { padding: 6rem 2rem 8rem; max-width: 1500px; margin: 0 auto; }
 .stage__view { position: relative; height: 78vh; background: #000; overflow: hidden; }
@@ -441,6 +487,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .studio, .expo { padding-left: 1.2rem; padding-right: 1.2rem; }
   .exhibit { grid-template-columns: 1fr; gap: 1.6rem; }
   .exhibit__feature video { height: auto; width: 100%; }
+  .camp-sect { padding: 4rem 1.2rem 5rem; }
+  .camp { column-gap: 10px; row-gap: 5vh; }
+  .camp-meta { gap: 1.2rem; margin: -1.4rem 0 2.2rem; }
+  /* на телефоне кадры идут столбцом в полную ширину — без мелких колонок */
+  .camp .camp--full,
+  .camp .camp--wide,
+  .camp .camp--left,
+  .camp .camp--right,
+  .camp .camp--half { grid-column: 1 / -1; }
+  .camp .camp--tall { padding: 2vh 0; }
+  .camp .camp--tall img { height: auto; width: 100%; }
   .stage { padding: 4rem 1.2rem 5rem; }
   .stage__view { height: 60vh; }
   .stage__hint { display: none; }

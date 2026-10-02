@@ -19,8 +19,8 @@
 <header class="bar">
   <a class="bar__name mono" href="#intro">артём григорян</a>
   <nav class="bar__nav mono">
+    <a href="#artdir">art direction</a>
     <a href="#ai">ai</a>
-    <a href="#set">set</a>
     <a href="#studio">студия</a>
     <a href="#expo">выставки</a>
     <a href="#" data-open-commercial>commercial</a>
@@ -60,8 +60,8 @@
 <section class="dirs" id="directions">
   <p class="mono dim dirs__label rv">practice</p>
   <ul class="dirs__list">
-    <li class="dirs__row dirs__row--soon rv" data-peek="img:assets/img/set/set-002.jpg">
-      <span class="mono dim">01</span><span class="dirs__title">Art Direction / Directing</span><span class="mono dim dirs__sub">coming soon</span>
+    <li class="dirs__row rv" data-peek="img:assets/img/artdir/artdir-003.jpg" data-href="#artdir">
+      <span class="mono dim">01</span><span class="dirs__title">Art Direction / Directing</span><span class="mono dim dirs__sub">кампании · съёмки</span>
     </li>
     <li class="dirs__row rv" data-peek="img:assets/img/ai3/ai3-002.jpg" data-href="#ai">
       <span class="mono dim">02</span><span class="dirs__title">AI Visuals</span><span class="mono dim dirs__sub">цифровые серии</span>
@@ -75,17 +75,27 @@
     <li class="dirs__row rv" data-peek="vid:assets/video/loops/theatre-main.mp4" data-href="#expo">
       <span class="mono dim">05</span><span class="dirs__title">Exhibitions</span><span class="mono dim dirs__sub">personal work</span>
     </li>
-    <li class="dirs__row rv" data-peek="img:assets/img/set/set-001.jpg" data-href="#set">
-      <span class="mono dim">06</span><span class="dirs__title">Set Design</span><span class="mono dim dirs__sub">сценография</span>
-    </li>
     <li class="dirs__row rv" data-peek="vid:assets/video/loops/cska-gamer.mp4" data-open-commercial>
-      <span class="mono dim">07</span><span class="dirs__title">Commercial Works</span><span class="mono dim dirs__sub">для клиентов →</span>
+      <span class="mono dim">06</span><span class="dirs__title">Commercial Works</span><span class="mono dim dirs__sub">для клиентов →</span>
     </li>
   </ul>
   <div class="peek" aria-hidden="true"></div>
 </section>
 
-<!-- ============ 04 / AI VISUALS ============ -->
+<!-- ============ 04 / ART DIRECTION ============ -->
+<section class="camp-sect" id="artdir">
+  <header class="sect-head rv">
+    <h2>Art Direction / Directing</h2>
+    <p class="mono dim">кампании · съёмки</p>
+  </header>
+  <div class="camp-meta rv">
+    <p class="mono">№ 01 &ensp; imkmode</p>
+    <p class="mono dim">art direction · campaign</p>
+  </div>
+  <div class="camp" id="camp-grid"></div>
+</section>
+
+<!-- ============ 05 / AI VISUALS ============ -->
 <section class="ai" id="ai">
   <header class="sect-head rv">
     <h2>AI Visuals</h2>
@@ -105,7 +115,9 @@
   </div>
 </section>
 
-<!-- ============ 05 / SET DESIGN ============ -->
+<!-- Раздел Set Design временно снят: папка «Set design» пуста.
+     Чтобы вернуть — положить кадры в папку, пересобрать и раскомментировать блок,
+     а также строку Set Design в Practice и пункт «set» в меню.
 <section class="stage" id="set">
   <header class="sect-head rv">
     <h2>Set Design</h2>
@@ -120,6 +132,7 @@
     <button class="ghost mono stage__open" data-open-archive>весь архив — открыть</button>
   </div>
 </section>
+-->
 
 <!-- ============ 06 / LUMIÈRE NOIRE STUDIO ============ -->
 <section class="studio" id="studio">
@@ -243,13 +256,6 @@
       <h3 class="comm__title">Belgee</h3>
       <p class="mono dim">2nd director / screenwriter · серия роликов</p>
       <div class="comm__grid" id="belgee-grid"></div>
-    </article>
-    <article class="comm__project">
-      <h3 class="comm__title">ТВОЕ</h3>
-      <p class="mono dim">ролик для бренда</p>
-      <div class="comm__feature">
-        <video data-src="assets/video/loops/tvoe.mp4" muted loop playsinline preload="none" data-loop></video>
-      </div>
     </article>
     <article class="comm__project">
       <h3 class="comm__title">ЦСКА</h3>
