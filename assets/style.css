@@ -288,7 +288,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   width: auto;
   height: min(88vh, 940px);
   max-width: 100%;
-  /* намеренное вытягивание — кадр выше своих пропорций */
+}
+/* намеренное вытягивание — только отмеченные кадры */
+.camp .camp--stretch img {
   aspect-ratio: 3 / 5;
   object-fit: fill;
 }

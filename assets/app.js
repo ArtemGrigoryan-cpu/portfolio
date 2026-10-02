@@ -121,6 +121,8 @@
   if (campGrid) {
     // редакционный ритм для горизонтальных кадров; вертикальные — отдельным разворотом
     const RHYTHM = ['camp--full', 'camp--left', 'camp--right', 'camp--half', 'camp--half', 'camp--wide'];
+    // кадры, которые показываем намеренно вытянутыми (остальные — в родных пропорциях)
+    const STRETCH = ['artdir-005.jpg'];
     let landscapeN = 0;
     let openHalf = null; // незакрытая половина пары
     (G.artdir || []).forEach((it, i) => {
@@ -133,6 +135,7 @@
           landscapeN++; // пропускаем вторую половину в ритме
         }
         fig.classList.add('camp--tall');
+        if (STRETCH.some((n) => it.src.endsWith(n))) fig.classList.add('camp--stretch');
       } else {
         const cls = RHYTHM[landscapeN % RHYTHM.length];
         fig.classList.add(cls);
