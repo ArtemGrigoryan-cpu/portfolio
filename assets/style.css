@@ -237,6 +237,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .frag figure:nth-child(6n+5) { grid-column: 6 / span 4; margin-top: 6vh; }
 .frag figure:nth-child(6n)   { grid-column: 11 / span 2; margin-top: -8vh; }
 .frag img { width: 100%; opacity: 0; transition: opacity 0.7s, filter 0.4s; filter: saturate(0.9); }
+/* часть фрагментов намеренно вытянута по вертикали — ритм раздела */
+.frag figure.stretch img { aspect-ratio: 5 / 8; object-fit: fill; }
 .frag img.is-visible { opacity: 1; }
 .frag figure:hover img { filter: none; }
 #frag-more { display: block; margin: 4rem auto 0; }
@@ -286,6 +288,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   width: auto;
   height: min(88vh, 940px);
   max-width: 100%;
+  /* намеренное вытягивание — кадр выше своих пропорций */
+  aspect-ratio: 3 / 5;
+  object-fit: fill;
 }
 
 /* ============ 05 set design — сцена ============ */

@@ -105,7 +105,11 @@
   let fragShown = 0;
   function addFrags(count) {
     const end = Math.min(fragShown + count, fragItems.length);
-    for (let i = fragShown; i < end; i++) fragEl.appendChild(makeFigure(fragItems[i], 'aix', i));
+    for (let i = fragShown; i < end; i++) {
+      const fig = makeFigure(fragItems[i], 'aix', i);
+      if (i % 3 === 1) fig.classList.add('stretch'); // каждый третий — вытянутый
+      fragEl.appendChild(fig);
+    }
     fragShown = end;
     if (fragShown >= fragItems.length) $('#frag-more').hidden = true;
   }
